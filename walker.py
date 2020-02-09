@@ -1,17 +1,23 @@
+#!/usr/bin/env python3
+# walker.py by FmG
+# Free to use
+
 import mysql.connector
 import os
 import sys
 import time
+
+__version__ = '0.1.0'
+
 
 def humanize_time(secs):
     mins, secs = divmod(secs, 60)
     hours, mins = divmod(mins, 60)
     return '%02d:%02d:%02d' % (hours, mins, secs)
 startTime = time.time()
+# put here any extension to exlude in the loop
 excludeList = [".lnk", ".db", ".cache", ".dmc-tvt-ddinfo", ".fail", ".crdownload", ".aspera-ckpt", ".partial", ".tmp1", ".tmp"]
-# path = "/var/www/html/outgest/"
-# path = "/gluster/VODEncodedArchive"
-# path = "/gluster/VODSrcMaterial"
+
 path = "/gluster/"
 mydb = mysql.connector.connect(
                                host="localhost",
