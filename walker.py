@@ -7,9 +7,6 @@ import os
 import sys
 import time
 
-__version__ = '0.1.0'
-
-
 def humanize_time(secs):
     mins, secs = divmod(secs, 60)
     hours, mins = divmod(mins, 60)
