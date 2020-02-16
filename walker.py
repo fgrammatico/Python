@@ -31,37 +31,40 @@ dupLog = "/var/www/html/outgest/logs/walker_" + time.strftime("%Y%m%d%H%M%S", ti
 logFile = open(logName, "w")
 dupFile = open(dupLog, "w")
 sql = "INSERT INTO `files`(`Fullname`,`Filename`,`Extension`,`Size`,`Status`,`idClient`,`readyForTransfer`,`transferMethod`,`lastUpdate`) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s);"
-for path, subdirs, files in os.walk(path):
-    for name in files:
-        fullname = file = os.path.join(path, name)
-        size = os.path.getsize(file)
-        extension = os.path.splitext(file)[1]
-        # sanitazedName = fullname.replace("/", "\\")
-        sanitazedName = fullname.replace("gluster", "\\vodstp01-smb.svc.dmc-int.net")
-        sanitazedName = sanitazedName.replace(os.sep, '\\')
-        cSql = "SELECT COUNT(*) FROM files where Fullname=%s"
-        cVal = (sanitazedName,)
-        mycursor.execute(cSql, cVal)
-        cCheck = mycursor.fetchone()
-        if (cCheck[0] > 0) or (extension in excludeList) or (name[:12] == "#chkpt_file#") or (name[:11] == "#work_file#"):
-            if(extension in excludeList):
-                logFile.write(time.strftime("%H:%M:%S", time.localtime(time.time())) + ": File Skipped - " + sanitazedName + " Reason: Extension type\n")
-            elif (name[:12] == "#chkpt_file#") or (name[:11] == "#work_file#"):
-                logFile.write(time.strftime("%H:%M:%S", time.localtime(time.time())) + ": File Skipped - " + sanitazedName + " Reason: Work File\n")
-            elif (cCheck[0] > 0):
-                logFile.write(time.strftime("%H:%M:%S", time.localtime(time.time())) + ": File Skipped - " + sanitazedName + " Reason: Duplicate Record\n")
-                dupFile.write(time.strftime("%H:%M:%S", time.localtime(time.time())) + ": Duplicate File - " + sanitazedName + " \n")
-                dupCount += 1
+try:
+    for path, subdirs, files in os.walk(path):
+        for name in files:
+            fullname = file = os.path.join(path, name)
+            size = os.path.getsize(file)
+            extension = os.path.splitext(file)[1]
+            # sanitazedName = fullname.replace("/", "\\")
+            sanitazedName = fullname.replace("gluster", "\\vodstp01-smb.svc.dmc-int.net")
+            sanitazedName = sanitazedName.replace(os.sep, '\\')
+            cSql = "SELECT COUNT(*) FROM files where Fullname=%s"
+            cVal = (sanitazedName,)
+            mycursor.execute(cSql, cVal)
+            cCheck = mycursor.fetchone()
+            if (cCheck[0] > 0) or (extension in excludeList) or (name[:12] == "#chkpt_file#") or (name[:11] == "#work_file#"):
+                if(extension in excludeList):
+                    logFile.write(time.strftime("%H:%M:%S", time.localtime(time.time())) + ": File Skipped - " + sanitazedName + " Reason: Extension type\n")
+                elif (name[:12] == "#chkpt_file#") or (name[:11] == "#work_file#"):
+                    logFile.write(time.strftime("%H:%M:%S", time.localtime(time.time())) + ": File Skipped - " + sanitazedName + " Reason: Work File\n")
+                elif (cCheck[0] > 0):
+                    logFile.write(time.strftime("%H:%M:%S", time.localtime(time.time())) + ": File Skipped - " + sanitazedName + " Reason: Duplicate Record\n")
+                    dupFile.write(time.strftime("%H:%M:%S", time.localtime(time.time())) + ": Duplicate File - " + sanitazedName + " \n")
+                    dupCount += 1
+                else:
+                    logFile.write(time.strftime("%H:%M:%S", time.localtime(time.time())) + ": File Skipped - " + sanitazedName + " Reason: Unknown\n")
+                skipCount += 1            
             else:
-                logFile.write(time.strftime("%H:%M:%S", time.localtime(time.time())) + ": File Skipped - " + sanitazedName + " Reason: Unknown\n")
-            skipCount += 1            
-        else:
-            val = (sanitazedName, name, extension, size, "2", idClient, time.time(), idTransfer, time.time())
-            mycursor.execute(sql, val)
-            mydb.commit()
-            recordCount += 1
-        sys.stdout.write("\r" + time.strftime("%H:%M:%S", time.localtime(time.time())) + ' -> Record Inserted. Total Inserted: ' + str(recordCount) + ' Skipped: ' + str(skipCount) + ' (Duplicate: ' + str(dupCount) + ') in: ' + humanize_time(time.time() - startTime))
-        sys.stdout.flush()
+                val = (sanitazedName, name, extension, size, "2", idClient, time.time(), idTransfer, time.time())
+                mycursor.execute(sql, val)
+                mydb.commit()
+                recordCount += 1
+            sys.stdout.write("\r" + time.strftime("%H:%M:%S", time.localtime(time.time())) + ' -> Record Inserted. Total Inserted: ' + str(recordCount) + ' Skipped: ' + str(skipCount) + ' (Duplicate: ' + str(dupCount) + ') in: ' + humanize_time(time.time() - startTime))
+            sys.stdout.flush()
+except:
+    print("An exception occurred")
 duration = time.time()-startTime
 print ("\nJob Completed\n" + str(recordCount) + ' records inserted\n' + str(skipCount) + ' records skipped (Duplicate: ' + dupCount + ')\nDuration: ' + humanize_time(duration) + ' seconds')
 logFile.close()
