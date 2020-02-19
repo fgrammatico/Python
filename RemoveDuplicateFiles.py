@@ -1,6 +1,10 @@
 import os
+import logging
 from os.path import splitext
 from collections import Counter
+logging.basisConfig(filename='''$PATH''',level=logging.DEBUG,format='%(asctime)s - %(levelname)s - %(message)s')
+#logging.disable(logging.CRITICAL)
+logging.debug('Start of script')
 
 def compare_text_flac_mp3(path):
     #List containing all file names + their extension in path directory
@@ -15,7 +19,10 @@ def compare_text_flac_mp3(path):
         if v > 1:
             if os.path.exists('''/mnt/md-name-H4cKn3t:0/Music/Audio_Collection/Rock/'''+ k + '.mp3'):
                 #If path exist then remove the duplicate file
+                logging.debug('Deleting file ' + k)
                 os.remove('''/mnt/md-name-H4cKn3t:0/Music/Audio_Collection/Rock/'''+ k + '.mp3')
             else:
                 print ('nope')
+logging.debug('End of script')
+
 compare_text_flac_mp3('/mnt/md-name-H4cKn3t:0/Music/Audio_Collection/Rock')
