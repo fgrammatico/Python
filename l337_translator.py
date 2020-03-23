@@ -6,4 +6,3 @@ s = input ('Enter your password:')
 print(s.translate({ord(x): y for (x, y) in zip(intab, outtab)}))
 print input ('Press any key to close the program')
 
-#end of program
