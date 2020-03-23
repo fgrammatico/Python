@@ -4,3 +4,4 @@ intab = 'qwertyuiopasdfghjklzxcvbnm'
 outtab = 'qw3r7yu10p45df6hjklzxcvbnm'
 s = input ('Enter your password:')
 print(s.translate({ord(x): y for (x, y) in zip(intab, outtab)}))
+print (input ('Press any key to close the program'))
