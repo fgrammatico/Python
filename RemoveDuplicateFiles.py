@@ -22,7 +22,7 @@ def compare_text_flac_mp3(path):
                 logging.debug('Deleting file ' + k)
                 os.remove('''/mnt/md-name-H4cKn3t:0/Music/Audio_Collection/'''+ k + '.mp3')
             else:
-                print ('nope')
+                print ('nothing to delete')
 logging.debug('End of script')
 
 compare_text_flac_mp3('''/mnt/md-name-H4cKn3t:0/Music/Audio_Collection/''')
