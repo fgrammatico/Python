@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+# RemoveDuplicateFiles.py by FmG
+# Free to use
 # This script will scan a given folder for audio files with the same name. If a flac/mp3 pair is found , the mp3 will be deleted.
 
 import os
