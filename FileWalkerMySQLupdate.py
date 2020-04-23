@@ -66,5 +66,5 @@ try:
 except:
     print("An exception occurred")
 duration = time.time()-startTime
-print ("\nJob Completed\n" + str(recordCount) + ' records inserted\n' + str(skipCount) + ' records skipped (Duplicate: ' + dupCount + ')\nDuration: ' + humanize_time(duration) + ' seconds')
+print ("\nJob Completed\n" + str(recordCount) + ' records inserted\n' + str(skipCount) + ' records skipped (Duplicate: ' + str(dupCount) + ')\nDuration: ' + humanize_time(duration) + ' seconds')
 logFile.close()
