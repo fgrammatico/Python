@@ -17,7 +17,7 @@ def humanize_time(secs):
     return '%02d:%02d:%02d' % (hours, mins, secs)
 startTime = time.time()
 # put here any extension to exlude in the loop
-excludeList = [".txt", ".db", ".cache", ".tmp", ".log"]
+excludeList = [".txt", ".db", ".cache", ".tmp", ".log", ".flac"]
 
 sourcepath = musicfolder
 mydb = mysql.connector.connect(
