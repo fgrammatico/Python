@@ -46,7 +46,7 @@ for path, subdirs, files in os.walk(sourcepath):
             requested = 'yes'
             sanitazedName = path
             cSql = "SELECT COUNT(*) FROM MyMusic where Name=%s"
-            cVal = (path,)
+            cVal = (path)
             mycursor.execute(cSql, cVal)
             cCheck = mycursor.fetchone()
             if (cCheck[0] > 0) or (extension in excludeList):
