@@ -9,7 +9,7 @@ import time
 from eyed3 import id3
 
 musicfolder='''/mnt/raid1/Plex/Music/Archive/'''
-logspath='''/media/slashviper/'''
+logspath='''/home/slashviper/'''
 
 def humanize_time(secs):
     mins, secs = divmod(secs, 60)
