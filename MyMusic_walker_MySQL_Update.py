@@ -8,8 +8,8 @@ import sys
 import time
 from eyed3 import id3
 
-musicfolder='''/home/slashviper/Downloads/test/'''
-logspath='''/media/slashviper/HD_Crap/'''
+musicfolder='''/mnt/raid1/Plex/Music/Archive/'''
+logspath='''/media/slashviper/'''
 
 def humanize_time(secs):
     mins, secs = divmod(secs, 60)
@@ -45,8 +45,8 @@ for path, subdirs, files in os.walk(sourcepath):
             song = tag.title
             requested = 'yes'
             sanitazedName = path
-            cSql = "SELECT COUNT(*) FROM MyMusic where Name=%s"
-            cVal = (path)
+            cSql = "SELECT COUNT(*) FROM MyMusic where Name=%s AND Artist=%s AND Song=%s"
+            cVal = (name, artist, song)
             mycursor.execute(cSql, cVal)
             cCheck = mycursor.fetchone()
             if (cCheck[0] > 0) or (extension in excludeList):
