@@ -2,7 +2,8 @@
 # walker.py by FmG
 # Free to use
 
-import mysql.connector
+# import mysql.connector
+from mysql import connector
 import os
 import sys
 import time
@@ -16,12 +17,7 @@ startTime = time.time()
 excludeList = [".lnk", ".db", ".cache", ".dmc-tvt-ddinfo", ".fail", ".crdownload", ".aspera-ckpt", ".partial", ".tmp1", ".tmp"]
 
 path = "/gluster/"
-mydb = mysql.connector.connect(
-                               host="localhost",
-                               user="outgestuser",
-                               passwd="FT2tALfgZ72gZ39B",
-                               database="outgest"
-                               )
+mydb = mysql.connector.connect(host="localhost",user="outgestuser",passwd="FT2tALfgZ72gZ39B",database="outgest")
 mycursor = mydb.cursor()
 idClient = 2
 idTransfer = 1
