@@ -2,8 +2,7 @@
 # walker.py by FmG
 # Free to use
 
-# import mysql.connector
-from mysql import connector
+import mysql.connector
 import os
 import sys
 import time
