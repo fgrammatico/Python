@@ -1,22 +1,28 @@
 #!/usr/bin/env python3
-# walker.py by FmG
-# Free to use
-
-import mysql.connector
+'''
+This script will scan a folder for files and register to a MySQL DB the location, file name and other parameters.
+It's just an example of file automation I'm used to solve.
+Free to use
+'''
 import os
 import sys
 import time
+import mysql.connector
 
 def humanize_time(secs):
+    '''
+    DOCSTRING The humanize_time function will convert seconds to a human readable hours, min ,secs time 
+    '''
     mins, secs = divmod(secs, 60)
     hours, mins = divmod(mins, 60)
     return '%02d:%02d:%02d' % (hours, mins, secs)
+
 startTime = time.time()
 # put here any extension to exlude in the loop
 excludeList = [".lnk", ".db", ".cache", ".dmc-tvt-ddinfo", ".fail", ".crdownload", ".aspera-ckpt", ".partial", ".tmp1", ".tmp"]
 
 path = "/gluster/"
-mydb = mysql.connector.connect(host="localhost",user="outgestuser",passwd="FT2tALfgZ72gZ39B",database="outgest")
+mydb = mysql.connector.connect(host="localhost", user="outgestuser", passwd="FT2tALfgZ72gZ39B", database="outgest")
 mycursor = mydb.cursor()
 idClient = 2
 idTransfer = 1
@@ -40,11 +46,11 @@ try:
             mycursor.execute(cSql, cVal)
             cCheck = mycursor.fetchone()
             if (cCheck[0] > 0) or (extension in excludeList) or (name[:12] == "#chkpt_file#") or (name[:11] == "#work_file#"):
-                if(extension in excludeList):
+                if extension in excludeList:
                     logFile.write(time.strftime("%H:%M:%S", time.localtime(time.time())) + ": File Skipped - " + sanitazedName + " Reason: Extension type\n")
                 elif (name[:12] == "#chkpt_file#") or (name[:11] == "#work_file#"):
                     logFile.write(time.strftime("%H:%M:%S", time.localtime(time.time())) + ": File Skipped - " + sanitazedName + " Reason: Work File\n")
-                elif (cCheck[0] > 0):
+                elif cCheck[0] > 0:
                     logFile.write(time.strftime("%H:%M:%S", time.localtime(time.time())) + ": File Skipped - " + sanitazedName + " Reason: Duplicate Record\n")
                     dupFile.write(time.strftime("%H:%M:%S", time.localtime(time.time())) + ": Duplicate File - " + sanitazedName + " \n")
                     dupCount += 1
@@ -61,5 +67,5 @@ try:
 except:
     print("An exception occurred")
 duration = time.time()-startTime
-print ("\nJob Completed\n" + str(recordCount) + ' records inserted\n' + str(skipCount) + ' records skipped (Duplicate: ' + str(dupCount) + ')\nDuration: ' + humanize_time(duration) + ' seconds')
+print("\nJob Completed\n" + str(recordCount) + ' records inserted\n' + str(skipCount) + ' records skipped (Duplicate: ' + str(dupCount) + ')\nDuration: ' + humanize_time(duration) + ' seconds')
 logFile.close()
