@@ -35,6 +35,9 @@ The purpose of this script is to secure the transfer of important information to
 * Adding KMS option
 * Add fancy GUI
 * Test on Windows
+* Add DynamoDb logs
+* Add possibility to modify content of mails
+* Add possibility to add and remove mails
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
