@@ -31,8 +31,8 @@ $ python3 DeadManSwitch.py
 The purpose of this script is to secure the transfer of important information to our loved ones in case of departure. The content of the emails should be short and simple with only the necessary informations. All the emails are stored on AWS S3 with ecrytion at rest.Security realated to encryption in flight or under computation is striclty reserved to the user. I take no responsibility for the effectiveness of this script or the security of your messages. It's a fun project not a an enterprise software. Keep in mind you must validate the recipients 24 hours before AWS SES will send the confirmation. For more experienced cloud engineers there's a serverless version on my github under Automation/Cloudformation/Serverless. Enjoy.
 
 ## To Do
-* Adding the possibility to use your own SMTP
-* Adding KMS option
+* Add the possibility to use your own SMTP
+* Add KMS option
 * Add fancy GUI
 * Test on Windows
 * Add DynamoDb logs
