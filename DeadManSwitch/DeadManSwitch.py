@@ -260,7 +260,7 @@ def mail_func(dmsaddress,fromaddress,AWSUSER,REGION,NDAYS,DMSBUCKET,LAMBDABUCKET
 def mail_body(dmsaddress,fromaddress,AWSUSER,REGION,NDAYS,DMSBUCKET,LAMBDABUCKET,toaddress):
     try:
         subjectText = 'Dead Man Switch Notification'
-        mailBody = input ('\nPlease enter the message content for this recipient in a single string, is meant to be short: ')
+        mailBody = input ('\nPlease enter the message content for this recipient in a single string, use '''\\n''' for a new line: ')
         msg = '\nSubject: ' + subjectText + '\n\n' + mailBody
         print (msg)
         confirmMailTemp = input ('\nIs this correct (Y/n)? ')
