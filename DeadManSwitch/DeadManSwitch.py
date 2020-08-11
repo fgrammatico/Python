@@ -160,7 +160,7 @@ def create_role(dmsaddress,fromaddress,AWSUSER,REGION,NDAYS):
 
         time.sleep(3) 
         response = client.put_role_policy(
-            PolicyDocument='{"Version":"2012-10-17","Statement":[{"Effect":"Allow","Action":"s3:*","Resource":"*"},{"Effect":"Allow","Action":"cloudtrail:*","Resource":"*"},{"Effect":"Allow","Action":"SES:*","Resource":"*"}]}',
+            PolicyDocument='{"Version":"2012-10-17","Statement":[{"Effect":"Allow","Action":"s3:*","Resource":"*"},{"Effect":"Allow","Action":"cloudtrail:*","Resource":"*"},{"Effect":"Allow","Action":"lambda:*","Resource":"*"},{"Effect":"Allow","Action":"events:*","Resource":"*"},{"Effect":"Allow","Action":"sns:*","Resource":"*"},{"Effect":"Allow","Action":"SES:*","Resource":"*"}]}',
             PolicyName='dmspolicy',
             RoleName='dmslambda',
         )
