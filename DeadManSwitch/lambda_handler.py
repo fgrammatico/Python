@@ -45,7 +45,8 @@ def lambda_handler(event, context):
         print ('"User found ' + returnuser + ' and logindate ' + str(logindate) + '"')
         if str(returnuser) == str(AWSUSER):
             msg = defaultbody + ' with ' + status + ' status'
-            mailer_func(fromaddress,fromaddress,msg,status)
+            toaddress = dmsaddress
+            mailer_func(fromaddress,toaddress,msg,status)
         else:
             deadman_switch()
     except Exception as error:
