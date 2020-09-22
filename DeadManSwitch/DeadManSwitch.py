@@ -38,7 +38,7 @@ def aws_cred():
                 print('\nSorry, the answer is invalid, please use just Y or n.\n')
                 aws_cred()
         else:
-            print('\nI can\'t find any AWS credentials, please download AWS cli and configure the tool with an existing user.')
+            print('\n***ERROR***\nI can\'t find any AWS credentials, please download AWS cli and configure the tool with an existing user.')
     except IOError:
         exiterror = input ('\nFile not accessible.\n*************The program will exit,press a key*************')
 
